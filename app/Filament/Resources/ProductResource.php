@@ -41,7 +41,12 @@ class ProductResource extends Resource
                 TextColumn::make('name')
                     ->sortable()
                     ->searchable(isIndividual: true, isGlobal: false),
-                TextColumn::make('price')->sortable(),
+                TextColumn::make('price')
+                    ->sortable()
+                    ->money()
+                    ->getStateUsing(function (Product $record): float {
+                        return $record->price / 100;
+                    }),
             ])
             ->defaultSort('price', 'desc')
             ->filters([
