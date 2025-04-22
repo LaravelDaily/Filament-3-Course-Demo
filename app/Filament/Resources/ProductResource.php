@@ -38,6 +38,9 @@ class ProductResource extends Resource
                     ->options(ProductStatusEnum::class),
                 Select::make('category_id')
                     ->relationship('category', 'name'),
+                Select::make('tags')
+                    ->relationship('tags', 'name')
+                    ->multiple(),
             ]);
     }
 
@@ -56,6 +59,7 @@ class ProductResource extends Resource
                     }),
                 TextColumn::make('status'),
                 TextColumn::make('category.name'),
+                TextColumn::make('tags.name'),
             ])
             ->defaultSort('price', 'desc')
             ->filters([
@@ -75,7 +79,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\TagsRelationManager::class
         ];
     }
 
