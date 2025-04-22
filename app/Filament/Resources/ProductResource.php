@@ -55,12 +55,20 @@ class ProductResource extends Resource
                 TextColumn::make('price')
                     ->sortable()
                     ->money()
+                    ->alignEnd()
                     ->getStateUsing(function (Product $record): float {
                         return $record->price / 100;
                     }),
-                TextColumn::make('status'),
-                TextColumn::make('category.name'),
-                TextColumn::make('tags.name'),
+                TextColumn::make('status')
+                    ->badge(),
+                TextColumn::make('category.name')
+                    ->label('Category Name'),
+//                    ->url(function (Product $record) {
+//                        return CategoryResource::getUrl('edit', [
+//                            'record' => $record->category_id
+//                        ]);
+//                    }),
+                TextColumn::make('tags.name')->badge(),
             ])
             ->defaultSort('price', 'desc')
             ->filters([
