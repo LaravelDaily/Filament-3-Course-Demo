@@ -15,6 +15,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -61,6 +63,8 @@ class ProductResource extends Resource
                     }),
                 TextColumn::make('status')
                     ->badge(),
+//                SelectColumn::make('status')
+//                    ->options(ProductStatusEnum::class),
                 TextColumn::make('category.name')
                     ->label('Category Name'),
 //                    ->url(function (Product $record) {
@@ -69,6 +73,7 @@ class ProductResource extends Resource
 //                        ]);
 //                    }),
                 TextColumn::make('tags.name')->badge(),
+                ToggleColumn::make('is_active'),
             ])
             ->defaultSort('price', 'desc')
             ->filters([
