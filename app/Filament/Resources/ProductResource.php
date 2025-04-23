@@ -80,7 +80,9 @@ class ProductResource extends Resource
 //                        ]);
 //                    }),
                 TextColumn::make('tags.name')->badge(),
-                ToggleColumn::make('is_active'),
+                ToggleColumn::make('is_active')
+                    ->onColor('success')
+                    ->offColor('danger'),
             ])
             ->defaultSort('price', 'desc')
             ->filters([
