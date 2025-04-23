@@ -31,20 +31,25 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->unique(ignoreRecord: true),
-                TextInput::make('price')
-                    ->required()
-                    ->rule('numeric'),
-                Radio::make('status')
-                    ->options(ProductStatusEnum::class),
-                Select::make('category_id')
-                    ->relationship('category', 'name'),
-                Select::make('tags')
-                    ->relationship('tags', 'name')
-                    ->multiple(),
-            ]);
+                Forms\Components\Wizard::make([
+                    Forms\Components\Wizard\Step::make('Main data')
+                        ->schema([
+                            TextInput::make('name')
+                                ->required()
+                                ->unique(ignoreRecord: true),
+                            TextInput::make('price')
+                                ->required()
+                                ->rule('numeric'),
+                        ]),
+                    Forms\Components\Wizard\Step::make('Additional data')
+                        ->schema([
+                            Radio::make('status')
+                                ->options(ProductStatusEnum::class),
+                            Select::make('category_id')
+                                ->relationship('category', 'name'),
+                        ]),
+                    ])
+                ])->columns(1);
     }
 
     public static function table(Table $table): Table
