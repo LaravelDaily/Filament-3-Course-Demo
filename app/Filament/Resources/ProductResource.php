@@ -29,21 +29,27 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationLabel(): string
+    {
+        return __('Products');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Wizard::make([
-                    Forms\Components\Wizard\Step::make('Main data')
+                    Forms\Components\Wizard\Step::make(__('Main data'))
                         ->schema([
                             TextInput::make('name')
+                                ->label(__('Name'))
                                 ->required()
                                 ->unique(ignoreRecord: true),
                             TextInput::make('price')
                                 ->required()
                                 ->rule('numeric'),
                         ]),
-                    Forms\Components\Wizard\Step::make('Additional data')
+                    Forms\Components\Wizard\Step::make(__('Additional data'))
                         ->schema([
                             Radio::make('status')
                                 ->options(ProductStatusEnum::class),
