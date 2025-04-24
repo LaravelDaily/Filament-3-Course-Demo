@@ -19,6 +19,7 @@ use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
@@ -28,6 +29,10 @@ class ProductResource extends Resource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static int $globalSearchResultsLimit = 3;
 
     public static function getNavigationLabel(): string
     {
@@ -147,4 +152,14 @@ class ProductResource extends Resource
             'view' => Pages\ViewProduct::route('/{record}'),
         ];
     }
+
+    public static function getGlobalSearchResultUrl(Model $record): string
+    {
+        return self::getUrl('view', ['record' => $record]);
+    }
+
+//    public static function getGloballySearchableAttributes(): array
+//    {
+//        return ['name', 'description'];
+//    }
 }
