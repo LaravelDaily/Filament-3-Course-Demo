@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'price', 'status', 'category_id', 'is_active'];
+    protected $fillable = ['name', 'slug', 'price', 'status', 'category_id', 'is_active'];
 
     protected $casts = [
         'status' => ProductStatusEnum::class,

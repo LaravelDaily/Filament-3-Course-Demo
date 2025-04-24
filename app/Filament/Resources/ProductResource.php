@@ -49,7 +49,12 @@ class ProductResource extends Resource
                             TextInput::make('name')
                                 ->label(__('Name'))
                                 ->required()
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', str()->slug($state)))
                                 ->unique(ignoreRecord: true),
+                            TextInput::make('slug')
+                                ->disabledOn('edit')
+                                ->required(),
                             TextInput::make('price')
                                 ->required()
                                 ->rule('numeric'),
