@@ -26,6 +26,11 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('name'),
                 Forms\Components\TextInput::make('email')
                     ->email(),
+                Forms\Components\Select::make('roles')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 
@@ -37,6 +42,8 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
+                Tables\Columns\TextColumn::make('roles.name')
+                    ->badge(),
             ])
             ->filters([
                 //
