@@ -18,4 +18,9 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
 }
